@@ -1,0 +1,21 @@
+{
+  "name": "sorokin-fm/yii2-es-logger-target",
+  "description": "Yii2 Logging Target for Elastic Search",
+  "authors": [
+    {
+      "name": "Alexander Sorokin",
+      "email": "alexander@sorokin.fm"
+    }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.4.0",
+    "yiisoft/yii2": "^2.0",
+    "elasticsearch/elasticsearch": "^6.0"
+  },
+  "autoload": {
+    "psr-0": {
+      "SorokinFM": "src/"
+    }
+  }
+}
