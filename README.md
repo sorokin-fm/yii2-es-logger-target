@@ -13,7 +13,7 @@ And add it to component section:
     'components' => [
         ...
         'log' => [
-            'targets' => new \yii\helpers\ReplaceArrayValue([
+            'targets' => [
                 [
                     'class' => 'common\components\ElasticSearchLogTarget',
                     'levels' => ['error', 'warning', 'info'],
@@ -25,11 +25,11 @@ And add it to component section:
                     'index' => 'app-' . date('Y-m-d'),
                     'type' => 'app',
                     'body' => [
-                        'site' => 'wmcentre.cc',
+                        'site' => 'yourwebsite.com',
                     ],
-                    'hosts' => ['http://kibana:Yk9K8PpRwqURUCMA@localhost:9200'],
+                    'hosts' => ['http://es_login:es_password@es_host:es_port'],
                 ],
-            ]),
+            ],
         ],
         ...
     ],
@@ -103,32 +103,40 @@ In this example, we will get 6 messages sent to ElasticSearch. And here they are
 
 ```
 {
-    'message' => 'Message fn1.1'
+    'message' => 'Message fn1.1',
+    'site' => 'youwebsite.com'
 },
 {
     'message' => 'Message fn2.1',
+    'site' => 'youwebsite.com'
     'context-information-1' => 'Some additional information',
 },
 {
     'message' => 'Message fn3.1',
+    'site' => 'youwebsite.com'
     'context-information-1' => 'Some additional information',
     'context-information-2' => 'Some additional information'
 },
 {
     'message' => 'Message fn3.2',
+    'site' => 'youwebsite.com'
     'context-information-1' => 'Some additional information',
     'context-information-2' => 'Some additional information'
 },
 {
     'message' => 'Message fn2.2',
+    'site' => 'youwebsite.com'
     'context-information-1' => 'Some additional information',
 },
 {
-    'message' => 'Message fn1.2'
+    'message' => 'Message fn1.2',
+    'site' => 'youwebsite.com'
 }
 ```
 
-That's cool, right? And only thing you will need to use it it just change logger via Dependency Injection mechanism:
+That's cool, right? But what is this - 'site'? Parameter site it's global scope, defined at your log config, section body. You can define several values there, and several values on each scope. All of them will be mergeg together when log message will be sent.
+
+So, to use scopes, you need just change logger via Dependency Injection mechanism:
 
 ```
     'container' => [
